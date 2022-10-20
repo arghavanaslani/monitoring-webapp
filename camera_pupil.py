@@ -2,7 +2,7 @@ import os
 import cv2 as cv
 from base_camera import BaseCamera
 
-from pupil_labs.realtime_api.simple import discover_one_device
+from pupil_labs.realtime_api.simple import discover_one_device, discover_devices
 from pupil_labs.realtime_api.simple import Device
 import time
 
@@ -17,12 +17,12 @@ class Camera(BaseCamera):
     @staticmethod
     def set_video_source():
         print("Looking for a device")
-        Camera.video_source = Device("pi.local", 8080)
-        # Camera.video_source = discover_one_device(max_search_duration_seconds=10)
+        # Camera.video_source = Device("pi.local", 8080)
+        Camera.video_source = discover_devices(max_search_duration_seconds=10) #returns a list 
         if Camera.video_source is None:
             print("No device found.")
             raise SystemExit(-1)
-        print(f"Connecting to {Camera.video_source}...")      
+        print(f"Connecting to {Camera.video_source}...")
 
 
     @staticmethod
